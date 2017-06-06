@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <style>
+        {
+        %
+        block
+        style
+        %
+        }
+        .navbar-static-top {
+            margin-bottom: 0px;
+        }
+
+        .jumbotron {
+            background-color: #ce8483;
+            color: #fff;
+        }
+
+        {
+        %
+        endblock
+        %
+        }
+    </style>
+
+</head>
+<body>
+
+
+{% block head_title %}Welcome | {{ block.super }}{% endblock %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+    {% block jumbotron_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6" style="text-align: justify">
+                <h1>Happy Face</h1>
+                <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work.
+                    It
+                    includes
+                    the responsive CSS and HTML.</p>
+                <p>To see the difference between static and fixed top navbars, just scroll.</p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="" role="button">Join Us &raquo;</a>
+                </p>
+            </div>
+            <div class="col-sm-6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/x8b4f5fhYuw?ecver=1" frameborder="0"
+                        allowfullscreen>
+
+                </iframe>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<h1> You are logged in.</h1>
+{% for instance in queryset %}
+    {{ instance.full_name }} | {{ instance.email }} <br/>
+{% endfor %}
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-3 pull-right">
+        <p class="lead text-align-centre">{{ title }}</p>
+        <form method="POST" action="">{% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-primary" type="submit" value="Sign Up"/>
+        </form>
+    </div>
+    <div class="col-sm-3">
+
+        <p class="lead text-align-centre">
+            Built using <br/> Font Awesome. -Simple static Icon.<br/>
+            <span class="fa-stack fa-3x">
+                <i class="fa fa-cube fa-2x" aria-hidden="true"></i>
+            </span>
+        </p>
+    </div>
+    <div class="col-sm-3">
+        <p class="lead text-align-centre">
+            Built using <br/> Font Awesome. -Stack of two icons.<br/>
+            <span class="fa-stack fa-3x">
+                <i class="fa fa-circle-o-notch fa-spin fa-stack-2x"></i>
+                <i class="fa fa-plane fa-stack-1x"></i>
+            </span>
+        </p>
+    </div>
+    <div class="col-sm-3">
+        <p class="lead text-align-centre">
+            Built using <br/> Font Awesome. -Simple Icon spin.<br/>
+            <span class="fa-stack fa-3x">
+            <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+            <span class="sr-only">Loading...</span><br/>
+            </span>
+        </p>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>
